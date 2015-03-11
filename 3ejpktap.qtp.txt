@@ -1,0 +1,33 @@
+﻿提交代码
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   pom.xml
+#	new file:   src/main/java/com/qinq/tools/snatcher/Constants.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/ExceptionListener.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/Snatcher.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/SnatcherFactory.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/SnatcherFuture.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/SnatcherStateListener.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/exception/HttpConnectionException.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/exception/HttpTimeoutConnection.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/exception/ParseAddressException.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/exception/SnatcherException.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/impl/DefaultSnatcher.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/modle/Link.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/modle/LinkQueue.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/net/HttpConnection.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/net/HttpRequest.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/net/HttpResponse.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/output/FileSystemOutput.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/util/FileUtils.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/util/HtmlParser.java
+#	new file:   src/main/java/com/qinq/tools/snatcher/util/HttpTypeUtil.java
+#	new file:   src/test/java/com/qinq/tools/snatcher/SnatcherServer.java
+#	new file:   src/test/java/com/qinq/tools/snatcher/SnatcherTest.java
+#	new file:   src/test/java/log4j.properties
+#
+
