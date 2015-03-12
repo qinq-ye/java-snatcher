@@ -1,5 +1,6 @@
 package com.qinq.tools.snatcher.impl;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.qinq.tools.snatcher.Constants;
 import com.qinq.tools.snatcher.ExceptionListener;
+import com.qinq.tools.snatcher.OutputHandler;
 import com.qinq.tools.snatcher.Snatcher;
 import com.qinq.tools.snatcher.SnatcherFuture;
 import com.qinq.tools.snatcher.SnatcherStateListener;
@@ -16,7 +18,6 @@ import com.qinq.tools.snatcher.modle.Link;
 import com.qinq.tools.snatcher.modle.LinkQueue;
 import com.qinq.tools.snatcher.net.HttpConnection;
 import com.qinq.tools.snatcher.net.HttpResponse;
-import com.qinq.tools.snatcher.output.FileSystemOutput;
 import com.qinq.tools.snatcher.util.HtmlParser;
 import com.qinq.tools.snatcher.util.HttpTypeUtil;
 
@@ -33,17 +34,15 @@ public class DefaultSnatcher implements Snatcher {
 	private int poolSize = 3;
 	private ExceptionListener exceptionListener;
 	private SnatcherStateListener stateListener;
-	private FileSystemOutput fileSystemOutput;
+	private OutputHandler outputHandler;
 	private String baseUrl;
 	private List<Link> successedList = new ArrayList<Link>();
 	private List<Link> faildList = new ArrayList<Link>();
 
-	public DefaultSnatcher(String baseUrl, int poolSize, int peroid,
-			String output) {
+	public DefaultSnatcher(String baseUrl, int poolSize, int peroid) {
 		this.baseUrl = baseUrl;
 		this.peroid = peroid;
 		this.poolSize = poolSize;
-		fileSystemOutput = new FileSystemOutput(output);
 	}
 
 	public SnatcherFuture start() {
@@ -64,6 +63,16 @@ public class DefaultSnatcher implements Snatcher {
 
 	public void setExceptionListener(ExceptionListener listener) {
 		exceptionListener = listener;
+	}
+
+	public void setOutputHandler(OutputHandler handler) {
+		this.outputHandler = handler;
+	}
+
+	private void output(URL url, byte[] content) {
+		if (outputHandler != null) {
+			outputHandler.handler(url, content);
+		}
 	}
 
 	class HttpCrawlerTask extends Thread {
@@ -113,10 +122,12 @@ public class DefaultSnatcher implements Snatcher {
 									List<Link> linkList = HtmlParser
 											.getHtmlLink(html, link.getUrl());
 									queue.offer(linkList);
-									fileSystemOutput.output(response);
+									output(response.getUrl(),
+											response.getContent());
 									break;
 								default:
-									fileSystemOutput.output(response);
+									output(response.getUrl(),
+											response.getContent());
 								}
 								successedList.add(link);
 								if (stateListener != null) {

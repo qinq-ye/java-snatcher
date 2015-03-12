@@ -34,4 +34,6 @@ public interface Snatcher {
 	 */
 	public void setExceptionListener(ExceptionListener listener);
 
+	public void setOutputHandler(OutputHandler handler);
+
 }

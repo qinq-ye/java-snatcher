@@ -1,6 +1,7 @@
 package com.qinq.tools.snatcher;
 
 import com.qinq.tools.snatcher.impl.DefaultSnatcher;
+import com.qinq.tools.snatcher.impl.FileOutputHandler;
 
 /**
  * 抓取器工厂类
@@ -13,14 +14,19 @@ public class SnatcherFactory {
 	private int peroid = 500;
 	private int poolSize = 3;
 	private String url;
-	private String outPut = "/tmp";
+	private OutputHandler outputHandler;
+
+	public SnatcherFactory(String url, OutputHandler outputHandler) {
+		this.url = url;
+		this.outputHandler = outputHandler;
+	}
 
 	/**
 	 * 使用默认值创建抓取工厂
 	 */
 	public SnatcherFactory(String url, String outPut) {
 		this.url = url;
-		this.outPut = outPut;
+		this.outputHandler = new FileOutputHandler(outPut);
 	}
 
 	/**
@@ -37,7 +43,15 @@ public class SnatcherFactory {
 		this.peroid = peroid;
 		this.poolSize = poolSize;
 		this.url = url;
-		this.outPut = outPut;
+		this.outputHandler = new FileOutputHandler(outPut);
+	}
+
+	public SnatcherFactory(int peroid, int poolSize, String url,
+			OutputHandler outputHandler) {
+		this.peroid = peroid;
+		this.poolSize = poolSize;
+		this.url = url;
+		this.outputHandler = outputHandler;
 	}
 
 	/**
@@ -102,7 +116,9 @@ public class SnatcherFactory {
 	 * @return
 	 */
 	public Snatcher createSnatcher() {
-		return new DefaultSnatcher(url, peroid, poolSize, outPut);
+		Snatcher snatcher = new DefaultSnatcher(url, peroid, poolSize);
+		snatcher.setOutputHandler(outputHandler);
+		return snatcher;
 	}
 
 }
